@@ -9,8 +9,8 @@ const initState = {
       gender: "male",
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
-      symptoms: [{ value: "cough" }, { value: "headache" }],
-      medicines: [{ meds: "cough" }]
+      symptoms: [{ value: "Cough" }, { value: "Headache" }],
+      medicines: [{ meds: "Diphenhydramine" }]
     },
     {
       id: "2",
@@ -21,8 +21,8 @@ const initState = {
       gender: "male",
       date_of_birth: "2020/03/20",
       date_of_last_visit: "2020/03/20",
-      symptoms: [{ value: "headache" }, { value: "cough" }],
-      medicines: [{ meds: "dsdsds" }, { meds: "dsdsds" }]
+      symptoms: [{ value: "Fever" }, { value: "Cold" }],
+      medicines: [{ meds: "Crocin" }, { meds: "Vicks" }]
     }
   ]
 };

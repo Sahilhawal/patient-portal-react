@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
+import { Form, Input, Button, Select, DatePicker, Col } from "antd";
 import moment from "moment";
 
 const { Search } = Input;
@@ -90,7 +90,8 @@ const Demo_form = props => {
   };
 
   return (
-    <div className="container">
+    <Col span={12} offset={6}>
+      <h1>Edit Patient</h1>
       <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
         <Form.Item
           name="name"
@@ -211,7 +212,7 @@ const Demo_form = props => {
           }
         </Form.Item>
       </Form>
-    </div>
+    </Col>
   );
 };
 

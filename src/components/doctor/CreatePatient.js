@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Form, Input, InputNumber, Button, Select, DatePicker } from "antd";
+import {
+  Form,
+  Input,
+  InputNumber,
+  Button,
+  Select,
+  DatePicker,
+  Row,
+  Col
+} from "antd";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -32,10 +41,6 @@ const CreatePatient = props => {
     );
     valuesToPass.date_of_last_visit = valuesToPass.date_of_last_visit.format(
       "YYYY/MM/DD"
-    );
-    console.log(
-      "dssdcsdsdcdsc",
-      fields.filter(field => field.value)
     );
     valuesToPass.symptoms = fields;
     valuesToPass.medicines = meds;
@@ -89,7 +94,7 @@ const CreatePatient = props => {
     rules: [{ type: "object", required: true, message: "Please select time!" }]
   };
   return (
-    <div className="container">
+    <Col span={12} offset={6}>
       <h1>Create Patient</h1>
       <Form
         {...layout}
@@ -195,7 +200,7 @@ const CreatePatient = props => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </Col>
   );
 };
 
