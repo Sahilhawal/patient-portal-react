@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Layout, Menu } from "antd";
 import { Link } from "react-router-dom";
-import userAuth from "../auth/user_auth";
 
 const { Header } = Layout;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { List, Avatar, Modal, Button } from "antd";
+import { List, Avatar, Modal } from "antd";
 
 class PatientList extends React.Component {
   state = {

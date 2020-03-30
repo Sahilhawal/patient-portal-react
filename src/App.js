@@ -26,11 +26,7 @@ function App(props) {
           component={Demo_form}
           auth={props.auth}
         />
-        <PrivateRoute
-          path="/create"
-          component={CreatePatient}
-          auth={props.auth}
-        />
+        <PrivateRoute path="/create" component={Demo_form} auth={props.auth} />
         <PrivateRoute
           path="/patientlist"
           component={PatientList}

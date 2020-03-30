@@ -39,13 +39,27 @@ const Demo_form = props => {
       setMeds(props.patients.medicines);
     }
   }, []);
-  const onFinish = values => {
+  const handleEdit = values => {
+    console.log();
     values.date_of_birth = values.date_of_birth.format("YYYY/MM/DD");
     values.date_of_last_visit = values.date_of_last_visit.format("YYYY/MM/DD");
     values.id = props.patients.id;
     values.symptoms = fields;
     values.medicines = meds;
     props.edit_patient(values);
+    props.history.push("/patientlist");
+  };
+
+  const handleSubmit = valuesToPass => {
+    valuesToPass.date_of_birth = valuesToPass.date_of_birth.format(
+      "YYYY/MM/DD"
+    );
+    valuesToPass.date_of_last_visit = valuesToPass.date_of_last_visit.format(
+      "YYYY/MM/DD"
+    );
+    valuesToPass.symptoms = fields;
+    valuesToPass.medicines = meds;
+    props.add_patient(valuesToPass);
     props.history.push("/patientlist");
   };
 
@@ -91,8 +105,13 @@ const Demo_form = props => {
 
   return (
     <Col span={12} offset={6}>
-      <h1>Edit Patient</h1>
-      <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+      {props.patients ? <h1>Edit Patient</h1> : <h1>Create Patient</h1>}
+      <Form
+        {...layout}
+        form={form}
+        name="control-hooks"
+        onFinish={props.patients ? handleEdit : handleSubmit}
+      >
         <Form.Item
           name="name"
           label="Name"
@@ -104,17 +123,18 @@ const Demo_form = props => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
-          <Input disabled />
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[{ type: "email", required: true }]}
+        >
+          {props.patients ? <Input disabled /> : <Input />}
         </Form.Item>
         <Form.Item name="age" label="Age">
           <Input type="number" min={1} max={100} />
         </Form.Item>
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
+          <Select allowClear>
             <Option value="male">male</Option>
             <Option value="female">female</Option>
             <Option value="other">other</Option>
@@ -220,6 +240,10 @@ const mapPropsToState = dispatch => {
   return {
     edit_patient: data => {
       dispatch({ type: "EDIT_PATIENT", data: data });
+    },
+    add_patient: data => {
+      data.id = Math.random();
+      dispatch({ type: "ADD_PATIENT", data: data });
     }
   };
 };
