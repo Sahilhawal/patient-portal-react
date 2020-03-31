@@ -53,12 +53,6 @@ const onFinishFailed = errorInfo => {
 };
 
 class Login extends React.Component {
-  state = {
-    redirectToReferrer: false,
-    domain: "",
-    id: ""
-  };
-
   login = values => {
     var user_logging_in = auth_data.users.find(user => {
       return user.email === values.username;
@@ -68,23 +62,15 @@ class Login extends React.Component {
       return false;
     }
     if (user_logging_in.password === values.password) {
-      userAuth.authenticate(user_logging_in, () => {
-        this.setState(
-          () => ({
-            redirectToReferrer: true,
-            domain: user_logging_in.domain,
-            id: user_logging_in.id
-          }),
-          this.props.user_login(user_logging_in)
-        );
-      });
+      this.props.user_login(user_logging_in);
     } else openNotification("Error", "Invalid Credentials");
   };
   render() {
-    const { redirectToReferrer, domain, id } = this.state;
-    if (redirectToReferrer === true) {
-      if (domain === "doctor") return <Redirect to="/patientlist" />;
-      if (domain === "patient") return <Redirect to={"/myprofile/" + id} />;
+    if (this.props.auth.isLoggedIn === true) {
+      if (this.props.auth.domain === "doctor")
+        return <Redirect to="/patientlist" />;
+      if (this.props.auth.domain === "patient")
+        return <Redirect to={"/myprofile/" + this.props.auth.id} />;
     }
 
     return (
@@ -143,7 +129,13 @@ const mapPropsToState = dispatch => {
   };
 };
 
-export default connect(null, mapPropsToState)(Login);
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps, mapPropsToState)(Login);
 
 /*
 export default function AuthExample() {
